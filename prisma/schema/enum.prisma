@@ -1,0 +1,11 @@
+enum UserRole {
+    admin
+    buyer
+    seller
+}
+
+enum SellerStatus{
+    pending
+    approved
+    rejected
+}

@@ -1,0 +1,25 @@
+model User {
+    id             String        @id @default(uuid())
+    email          String        @unique
+    firstName      String?
+    lastName       String?
+    password       String?
+    role           UserRole?      @default(buyer)
+    country        String?
+    address        String?
+    appartment     String?
+    city           String?
+    postcode       String?
+    status         Boolean       @default(true)
+    image          String?
+    phone          String?
+    otp            String?
+    otpExpiry      DateTime?
+    sellerStatus   SellerStatus?
+    verifiedForget Boolean?
+    isVerified     Boolean       @default(false)
+    createAt       DateTime      @default(now())
+    updateAt       DateTime      @updatedAt
+
+    @@map("users")
+}
