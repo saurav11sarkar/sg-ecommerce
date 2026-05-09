@@ -18,8 +18,8 @@ model User {
     sellerStatus   SellerStatus?
     verifiedForget Boolean?
     isVerified     Boolean       @default(false)
-    createAt       DateTime      @default(now())
-    updateAt       DateTime      @updatedAt
+    createdAt       DateTime      @default(now())
+    updatedAt       DateTime      @updatedAt
 
     @@map("users")
 }

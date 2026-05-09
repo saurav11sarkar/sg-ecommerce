@@ -51,6 +51,7 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Banner: 'Banner',
   Category: 'Category',
   User: 'User'
 } as const
@@ -69,6 +70,21 @@ export const TransactionIsolationLevel = runtime.makeStrictEnum({
 } as const)
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const BannerScalarFieldEnum = {
+  id: 'id',
+  topLeftBanners: 'topLeftBanners',
+  topMiddleUpBanners: 'topMiddleUpBanners',
+  topMiddleDownBanners: 'topMiddleDownBanners',
+  topRightBanners: 'topRightBanners',
+  middleSectionBanners: 'middleSectionBanners',
+  lowerSectionBanners: 'lowerSectionBanners',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BannerScalarFieldEnum = (typeof BannerScalarFieldEnum)[keyof typeof BannerScalarFieldEnum]
 
 
 export const CategoryScalarFieldEnum = {
@@ -102,8 +118,8 @@ export const UserScalarFieldEnum = {
   sellerStatus: 'sellerStatus',
   verifiedForget: 'verifiedForget',
   isVerified: 'isVerified',
-  createAt: 'createAt',
-  updateAt: 'updateAt'
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
