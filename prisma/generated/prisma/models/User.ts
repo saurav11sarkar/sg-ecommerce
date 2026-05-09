@@ -44,8 +44,8 @@ export type UserMinAggregateOutputType = {
   sellerStatus: $Enums.SellerStatus | null
   verifiedForget: boolean | null
   isVerified: boolean | null
-  createAt: Date | null
-  updateAt: Date | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -68,8 +68,8 @@ export type UserMaxAggregateOutputType = {
   sellerStatus: $Enums.SellerStatus | null
   verifiedForget: boolean | null
   isVerified: boolean | null
-  createAt: Date | null
-  updateAt: Date | null
+  createdAt: Date | null
+  updatedAt: Date | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -92,8 +92,8 @@ export type UserCountAggregateOutputType = {
   sellerStatus: number
   verifiedForget: number
   isVerified: number
-  createAt: number
-  updateAt: number
+  createdAt: number
+  updatedAt: number
   _all: number
 }
 
@@ -118,8 +118,8 @@ export type UserMinAggregateInputType = {
   sellerStatus?: true
   verifiedForget?: true
   isVerified?: true
-  createAt?: true
-  updateAt?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -142,8 +142,8 @@ export type UserMaxAggregateInputType = {
   sellerStatus?: true
   verifiedForget?: true
   isVerified?: true
-  createAt?: true
-  updateAt?: true
+  createdAt?: true
+  updatedAt?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -166,8 +166,8 @@ export type UserCountAggregateInputType = {
   sellerStatus?: true
   verifiedForget?: true
   isVerified?: true
-  createAt?: true
-  updateAt?: true
+  createdAt?: true
+  updatedAt?: true
   _all?: true
 }
 
@@ -263,8 +263,8 @@ export type UserGroupByOutputType = {
   sellerStatus: $Enums.SellerStatus | null
   verifiedForget: boolean | null
   isVerified: boolean
-  createAt: Date
-  updateAt: Date
+  createdAt: Date
+  updatedAt: Date
   _count: UserCountAggregateOutputType | null
   _min: UserMinAggregateOutputType | null
   _max: UserMaxAggregateOutputType | null
@@ -308,8 +308,8 @@ export type UserWhereInput = {
   sellerStatus?: Prisma.EnumSellerStatusNullableFilter<"User"> | $Enums.SellerStatus | null
   verifiedForget?: Prisma.BoolNullableFilter<"User"> | boolean | null
   isVerified?: Prisma.BoolFilter<"User"> | boolean
-  createAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  updateAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }
 
 export type UserOrderByWithRelationInput = {
@@ -332,8 +332,8 @@ export type UserOrderByWithRelationInput = {
   sellerStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   verifiedForget?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
-  createAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -359,8 +359,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   sellerStatus?: Prisma.EnumSellerStatusNullableFilter<"User"> | $Enums.SellerStatus | null
   verifiedForget?: Prisma.BoolNullableFilter<"User"> | boolean | null
   isVerified?: Prisma.BoolFilter<"User"> | boolean
-  createAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  updateAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -383,8 +383,8 @@ export type UserOrderByWithAggregationInput = {
   sellerStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   verifiedForget?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
-  createAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
   _min?: Prisma.UserMinOrderByAggregateInput
@@ -413,8 +413,8 @@ export type UserScalarWhereWithAggregatesInput = {
   sellerStatus?: Prisma.EnumSellerStatusNullableWithAggregatesFilter<"User"> | $Enums.SellerStatus | null
   verifiedForget?: Prisma.BoolNullableWithAggregatesFilter<"User"> | boolean | null
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
-  createAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
-  updateAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
+  updatedAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
 }
 
 export type UserCreateInput = {
@@ -437,8 +437,8 @@ export type UserCreateInput = {
   sellerStatus?: $Enums.SellerStatus | null
   verifiedForget?: boolean | null
   isVerified?: boolean
-  createAt?: Date | string
-  updateAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserUncheckedCreateInput = {
@@ -461,8 +461,8 @@ export type UserUncheckedCreateInput = {
   sellerStatus?: $Enums.SellerStatus | null
   verifiedForget?: boolean | null
   isVerified?: boolean
-  createAt?: Date | string
-  updateAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserUpdateInput = {
@@ -485,8 +485,8 @@ export type UserUpdateInput = {
   sellerStatus?: Prisma.NullableEnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus | null
   verifiedForget?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserUncheckedUpdateInput = {
@@ -509,8 +509,8 @@ export type UserUncheckedUpdateInput = {
   sellerStatus?: Prisma.NullableEnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus | null
   verifiedForget?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserCreateManyInput = {
@@ -533,8 +533,8 @@ export type UserCreateManyInput = {
   sellerStatus?: $Enums.SellerStatus | null
   verifiedForget?: boolean | null
   isVerified?: boolean
-  createAt?: Date | string
-  updateAt?: Date | string
+  createdAt?: Date | string
+  updatedAt?: Date | string
 }
 
 export type UserUpdateManyMutationInput = {
@@ -557,8 +557,8 @@ export type UserUpdateManyMutationInput = {
   sellerStatus?: Prisma.NullableEnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus | null
   verifiedForget?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -581,8 +581,8 @@ export type UserUncheckedUpdateManyInput = {
   sellerStatus?: Prisma.NullableEnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus | null
   verifiedForget?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updateAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -605,8 +605,8 @@ export type UserCountOrderByAggregateInput = {
   sellerStatus?: Prisma.SortOrder
   verifiedForget?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
-  createAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserMaxOrderByAggregateInput = {
@@ -629,8 +629,8 @@ export type UserMaxOrderByAggregateInput = {
   sellerStatus?: Prisma.SortOrder
   verifiedForget?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
-  createAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -653,8 +653,8 @@ export type UserMinOrderByAggregateInput = {
   sellerStatus?: Prisma.SortOrder
   verifiedForget?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
-  createAt?: Prisma.SortOrder
-  updateAt?: Prisma.SortOrder
+  createdAt?: Prisma.SortOrder
+  updatedAt?: Prisma.SortOrder
 }
 
 export type NullableEnumUserRoleFieldUpdateOperationsInput = {
@@ -699,8 +699,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   sellerStatus?: boolean
   verifiedForget?: boolean
   isVerified?: boolean
-  createAt?: boolean
-  updateAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -723,8 +723,8 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   sellerStatus?: boolean
   verifiedForget?: boolean
   isVerified?: boolean
-  createAt?: boolean
-  updateAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -747,8 +747,8 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   sellerStatus?: boolean
   verifiedForget?: boolean
   isVerified?: boolean
-  createAt?: boolean
-  updateAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -771,11 +771,11 @@ export type UserSelectScalar = {
   sellerStatus?: boolean
   verifiedForget?: boolean
   isVerified?: boolean
-  createAt?: boolean
-  updateAt?: boolean
+  createdAt?: boolean
+  updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "firstName" | "lastName" | "password" | "role" | "country" | "address" | "appartment" | "city" | "postcode" | "status" | "image" | "phone" | "otp" | "otpExpiry" | "sellerStatus" | "verifiedForget" | "isVerified" | "createAt" | "updateAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "firstName" | "lastName" | "password" | "role" | "country" | "address" | "appartment" | "city" | "postcode" | "status" | "image" | "phone" | "otp" | "otpExpiry" | "sellerStatus" | "verifiedForget" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
@@ -800,8 +800,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     sellerStatus: $Enums.SellerStatus | null
     verifiedForget: boolean | null
     isVerified: boolean
-    createAt: Date
-    updateAt: Date
+    createdAt: Date
+    updatedAt: Date
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1244,8 +1244,8 @@ export interface UserFieldRefs {
   readonly sellerStatus: Prisma.FieldRef<"User", 'SellerStatus'>
   readonly verifiedForget: Prisma.FieldRef<"User", 'Boolean'>
   readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
-  readonly createAt: Prisma.FieldRef<"User", 'DateTime'>
-  readonly updateAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
+  readonly updatedAt: Prisma.FieldRef<"User", 'DateTime'>
 }
     
 

@@ -1,0 +1,15 @@
+model Banner {
+    id String @id @default(uuid())
+
+    topLeftBanners       String[]
+    topMiddleUpBanners   String[]
+    topMiddleDownBanners String[]
+    topRightBanners      String[]
+    middleSectionBanners String[]
+    lowerSectionBanners  String[]
+
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+
+    @@map("banners")
+}
