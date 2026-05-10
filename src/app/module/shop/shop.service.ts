@@ -3,6 +3,9 @@ import { CreateShopDto } from './dto/create-shop.dto';
 import { UpdateShopDto } from './dto/update-shop.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { fileUpload } from 'src/app/helper/fileUploder';
+import { IFilterParams } from 'src/app/helper/pick';
+import paginationHelper, { IOptions } from 'src/app/helper/pagenation';
+import buildWhereConditions from 'src/app/helper/buildWhereConditions';
 
 @Injectable()
 export class ShopService {
@@ -50,5 +53,33 @@ export class ShopService {
     });
 
     return result;
+  }
+
+  async getAllShops(params: IFilterParams, options: IOptions) {
+    const { limit, page, skip, sortBy, sortOrder } = paginationHelper(options);
+    const whenCondition = buildWhereConditions(params, ["shopname",'shopdiscribtion']);
+
+    const [result, total] = await Promise.all([
+      this.prisma.shop.findMany({
+        where: whenCondition,
+        skip,
+        take: limit,
+        orderBy: {
+          [sortBy]: sortOrder,
+        },
+      }),
+      this.prisma.user.count({
+        where: whenCondition,
+      }),
+    ]);
+
+    return {
+      data: result,
+      meta: {
+        total,
+        page,
+        limit,
+      },
+    };
   }
 }
