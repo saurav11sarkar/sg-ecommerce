@@ -7,6 +7,7 @@ import config from 'src/app/config';
 import { IFilterParams } from 'src/app/helper/pick';
 import paginationHelper, { IOptions } from 'src/app/helper/pagenation';
 import buildWhereConditions from 'src/app/helper/buildWhereConditions';
+import { SellerStatus, UserRole } from 'prisma/generated/prisma/enums';
 
 @Injectable()
 export class UserService {
@@ -64,5 +65,29 @@ export class UserService {
         limit,
       },
     };
+  }
+
+  async switchToSaller(userId: string) {
+    const exist = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!exist) {
+      throw new HttpException('User is not found', 404);
+    }
+
+    if (exist.role === UserRole.seller) {
+      throw new HttpException('You alrady seller account', 400);
+    }
+
+    const result = await this.prisma.user.update({
+      where: { id: exist.id },
+      data: {
+        role: UserRole.seller,
+        sellerStatus: SellerStatus.pending,
+      },
+    });
+
+    return result;
   }
 }

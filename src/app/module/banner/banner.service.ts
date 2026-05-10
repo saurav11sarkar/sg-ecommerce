@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
 import { CreateBannerDto } from './dto/create-banner.dto';
 import { UpdateBannerDto } from './dto/update-banner.dto';
 import { PrismaService } from 'src/prisma/prisma.service';
@@ -8,57 +8,39 @@ import { fileUpload } from 'src/app/helper/fileUploder';
 export class BannerService {
   constructor(private readonly prisma: PrismaService) {}
 
-  private async uploadMultipleFiles(files?: Express.Multer.File[]) {
-    if (!files || files.length === 0) {
-      return [];
-    }
-
-    const uploadedFiles = await Promise.all(
+  private async uploadMultipleFiles(
+    files?: Express.Multer.File[],
+  ): Promise<string[]> {
+    if (!files || files.length === 0) return [];
+    return Promise.all(
       files.map(async (file) => {
         const result = await fileUpload.uploadToCloudinary(file);
         return result.url;
       }),
     );
-
-    return uploadedFiles;
   }
 
   async createBanner(
-    createBannerDto: CreateBannerDto,
-    files: {
-      topLeftBanners?: Express.Multer.File[];
-      topMiddleUpBanners?: Express.Multer.File[];
-      topMiddleDownBanners?: Express.Multer.File[];
-      topRightBanners?: Express.Multer.File[];
-      middleSectionBanners?: Express.Multer.File[];
-      lowerSectionBanners?: Express.Multer.File[];
-    },
+    _dto: CreateBannerDto,
+    files: Record<string, Express.Multer.File[]>,
   ) {
-    const topLeftBanners = await this.uploadMultipleFiles(
-      files?.topLeftBanners,
-    );
+    const [
+      topLeftBanners,
+      topMiddleUpBanners,
+      topMiddleDownBanners,
+      topRightBanners,
+      middleSectionBanners,
+      lowerSectionBanners,
+    ] = await Promise.all([
+      this.uploadMultipleFiles(files?.topLeftBanners),
+      this.uploadMultipleFiles(files?.topMiddleUpBanners),
+      this.uploadMultipleFiles(files?.topMiddleDownBanners),
+      this.uploadMultipleFiles(files?.topRightBanners),
+      this.uploadMultipleFiles(files?.middleSectionBanners),
+      this.uploadMultipleFiles(files?.lowerSectionBanners),
+    ]);
 
-    const topMiddleUpBanners = await this.uploadMultipleFiles(
-      files?.topMiddleUpBanners,
-    );
-
-    const topMiddleDownBanners = await this.uploadMultipleFiles(
-      files?.topMiddleDownBanners,
-    );
-
-    const topRightBanners = await this.uploadMultipleFiles(
-      files?.topRightBanners,
-    );
-
-    const middleSectionBanners = await this.uploadMultipleFiles(
-      files?.middleSectionBanners,
-    );
-
-    const lowerSectionBanners = await this.uploadMultipleFiles(
-      files?.lowerSectionBanners,
-    );
-
-    const result = await this.prisma.banner.create({
+    return this.prisma.banner.create({
       data: {
         topLeftBanners,
         topMiddleUpBanners,
@@ -68,79 +50,75 @@ export class BannerService {
         lowerSectionBanners,
       },
     });
-
-    return {
-      success: true,
-      message: 'Banner created successfully',
-      data: result,
-    };
   }
 
-  async findAll() {
-    const result = await this.prisma.banner.findMany({
-      orderBy: {
-        createdAt: 'desc',
+  async updateBanner(
+    id: string,
+    dto: UpdateBannerDto,
+    files: Record<string, Express.Multer.File[]>,
+  ) {
+    const existing = await this.prisma.banner.findUnique({
+      where: { id },
+    });
+
+    if (!existing) throw new HttpException('banner is not found', 404);
+
+    const [
+      newTopLeft,
+      newTopMiddleUp,
+      newTopMiddleDown,
+      newTopRight,
+      newMiddle,
+      newLower,
+    ] = await Promise.all([
+      this.uploadMultipleFiles(files?.topLeftBanners),
+      this.uploadMultipleFiles(files?.topMiddleUpBanners),
+      this.uploadMultipleFiles(files?.topMiddleDownBanners),
+      this.uploadMultipleFiles(files?.topRightBanners),
+      this.uploadMultipleFiles(files?.middleSectionBanners),
+      this.uploadMultipleFiles(files?.lowerSectionBanners),
+    ]);
+
+    const merge = (
+      existing: string[],
+      added: string[],
+      removed: string[] = [],
+    ) => [...existing, ...added].filter((url) => !removed.includes(url));
+
+    return this.prisma.banner.update({
+      where: { id },
+      data: {
+        topLeftBanners: merge(
+          existing.topLeftBanners,
+          newTopLeft,
+          dto.removeTopLeftBanners,
+        ),
+        topMiddleUpBanners: merge(
+          existing.topMiddleUpBanners,
+          newTopMiddleUp,
+          dto.removeTopMiddleUpBanners,
+        ),
+        topMiddleDownBanners: merge(
+          existing.topMiddleDownBanners,
+          newTopMiddleDown,
+          dto.removeTopMiddleDownBanners,
+        ),
+        topRightBanners: merge(
+          existing.topRightBanners,
+          newTopRight,
+          dto.removeTopRightBanners,
+        ),
+        middleSectionBanners: merge(
+          existing.middleSectionBanners,
+          newMiddle,
+          dto.removeMiddleSectionBanners,
+        ),
+        lowerSectionBanners: merge(
+          existing.lowerSectionBanners,
+          newLower,
+          dto.removeLowerSectionBanners,
+        ),
       },
     });
-
-    return {
-      success: true,
-      data: result,
-    };
-  }
-
-  async findOne(id: string) {
-    const result = await this.prisma.banner.findUnique({
-      where: { id },
-    });
-
-    if (!result) {
-      throw new NotFoundException('Banner not found');
-    }
-
-    return {
-      success: true,
-      data: result,
-    };
-  }
-
-  async updateBanner(id: string, updateBannerDto: UpdateBannerDto) {
-    const exist = await this.prisma.banner.findUnique({
-      where: { id },
-    });
-
-    if (!exist) {
-      throw new NotFoundException('Banner not found');
-    }
-
-    const result = await this.prisma.banner.update({
-      where: { id },
-      data: updateBannerDto,
-    });
-
-    return {
-      success: true,
-      message: 'Banner updated successfully',
-      data: result,
-    };
-  }
-
-  async removeBanner(id: string) {
-    const exist = await this.prisma.banner.findUnique({
-      where: { id },
-    });
-
-    if (!exist) {
-      throw new NotFoundException('Banner not found');
-    }
-
-    await this.prisma.banner.delete({
-      where: { id },
-    });
-
-    return {
-      success: true,
-      message: 'Banner deleted successfully',
-    };
   }
 }

@@ -50,6 +50,11 @@ export type Banner = Prisma.BannerModel
  */
 export type Category = Prisma.CategoryModel
 /**
+ * Model Shop
+ * 
+ */
+export type Shop = Prisma.ShopModel
+/**
  * Model User
  * 
  */
