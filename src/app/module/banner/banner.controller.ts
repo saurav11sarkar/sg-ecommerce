@@ -1,67 +1,78 @@
 import {
-  Controller,
-  Get,
-  Post,
   Body,
-  Patch,
-  Param,
+  Controller,
   Delete,
-  UseInterceptors,
-  UploadedFiles,
+  Get,
   HttpCode,
   HttpStatus,
+  Param,
+  Patch,
+  Post,
+  UploadedFiles,
   UseGuards,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FileFieldsInterceptor } from '@nestjs/platform-express';
+import {
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { BannerService } from './banner.service';
 import { CreateBannerDto } from './dto/create-banner.dto';
 import { UpdateBannerDto } from './dto/update-banner.dto';
-import { ApiBearerAuth, ApiBody, ApiConsumes, ApiOperation, ApiTags } from '@nestjs/swagger';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
-import { fileUpload } from 'src/app/helper/fileUploder';
 import { AuthGuard } from 'src/app/middlewares/auth.guard';
+import { fileUpload } from 'src/app/helper/fileUploder';
 
-@ApiTags('banner')
-@Controller('banner')
+const BANNER_FIELDS = [
+  { name: 'topLeftBanners', maxCount: 10 },
+  { name: 'topMiddleUpBanners', maxCount: 10 },
+  { name: 'topMiddleDownBanners', maxCount: 10 },
+  { name: 'topRightBanners', maxCount: 10 },
+  { name: 'middleSectionBanners', maxCount: 10 },
+  { name: 'lowerSectionBanners', maxCount: 10 },
+];
+
+@ApiTags('Banners')
+@Controller('banners')
 export class BannerController {
   constructor(private readonly bannerService: BannerService) {}
 
   @Post()
   @ApiOperation({ summary: 'Create Banner' })
   @ApiConsumes('multipart/form-data')
-  @ApiBearerAuth("access-token")
+  @ApiBearerAuth('access-token')
   @UseGuards(AuthGuard('admin'))
-  @ApiBody({
-    type: CreateBannerDto,
-  })
+  @ApiBody({ type: CreateBannerDto })
   @UseInterceptors(
-    FileFieldsInterceptor(
-      [
-        { name: 'topLeftBanners', maxCount: 10 },
-        { name: 'topMiddleUpBanners', maxCount: 10 },
-        { name: 'topMiddleDownBanners', maxCount: 10 },
-        { name: 'topRightBanners', maxCount: 10 },
-        { name: 'middleSectionBanners', maxCount: 10 },
-        { name: 'lowerSectionBanners', maxCount: 10 },
-      ],
-      fileUpload.uploadConfig,
-    ),
+    FileFieldsInterceptor(BANNER_FIELDS, fileUpload.uploadConfig),
   )
   @HttpCode(HttpStatus.CREATED)
   async createBanner(
-    @Body() createBannerDto: CreateBannerDto,
-    @UploadedFiles()
-    files: {
-      topLeftBanners?: Express.Multer.File[];
-      topMiddleUpBanners?: Express.Multer.File[];
-      topMiddleDownBanners?: Express.Multer.File[];
-      topRightBanners?: Express.Multer.File[];
-      middleSectionBanners?: Express.Multer.File[];
-      lowerSectionBanners?: Express.Multer.File[];
-    },
+    @Body() dto: CreateBannerDto,
+    @UploadedFiles() files: Record<string, Express.Multer.File[]>,
   ) {
-    const result = await this.bannerService.createBanner(
-      createBannerDto,
-      files,
-    );
+    const data = await this.bannerService.createBanner(dto, files);
+    return { message: 'Banner created successfully', data };
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Add or Remove images in a Banner' })
+  @ApiConsumes('multipart/form-data')
+  @ApiBearerAuth('access-token')
+  @UseGuards(AuthGuard('admin'))
+  @ApiBody({ type: UpdateBannerDto })
+  @UseInterceptors(
+    FileFieldsInterceptor(BANNER_FIELDS, fileUpload.uploadConfig),
+  )
+  async updateBanner(
+    @Param('id') id: string,
+    @Body() dto: UpdateBannerDto,
+    @UploadedFiles() files: Record<string, Express.Multer.File[]>,
+  ) {
+    const data = await this.bannerService.updateBanner(id, dto, files);
+    return { message: 'Banner updated successfully', data };
   }
 }

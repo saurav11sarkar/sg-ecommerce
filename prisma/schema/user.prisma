@@ -4,7 +4,7 @@ model User {
     firstName      String?
     lastName       String?
     password       String?
-    role           UserRole?      @default(buyer)
+    role           UserRole?     @default(buyer)
     country        String?
     address        String?
     appartment     String?
@@ -16,10 +16,11 @@ model User {
     otp            String?
     otpExpiry      DateTime?
     sellerStatus   SellerStatus?
+    shopId         Shop?
     verifiedForget Boolean?
     isVerified     Boolean       @default(false)
-    createdAt       DateTime      @default(now())
-    updatedAt       DateTime      @updatedAt
+    createdAt      DateTime      @default(now())
+    updatedAt      DateTime      @updatedAt
 
     @@map("users")
 }

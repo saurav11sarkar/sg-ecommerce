@@ -6,13 +6,22 @@ import {
   HttpStatus,
   Get,
   Req,
+  Patch,
+  UseGuards,
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiOperation, ApiQuery, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiQuery,
+  ApiTags,
+} from '@nestjs/swagger';
 import type { Request } from 'express';
 import pick from 'src/app/helper/pick';
+import { AuthGuard } from 'src/app/middlewares/auth.guard';
+import { UserRole } from 'prisma/generated/prisma/enums';
 
 @ApiTags('user')
 @Controller('user')
@@ -95,6 +104,22 @@ export class UserController {
       message: 'get all user successfully',
       meta: result.meta,
       data: result.data,
+    };
+  }
+
+  @Patch('switch-to-saller')
+  @ApiOperation({
+    summary: 'switch to seller',
+  })
+  @ApiBearerAuth('access-token')
+  @UseGuards(AuthGuard(UserRole.buyer))
+  @HttpCode(HttpStatus.OK)
+  async switchToSaller(@Req() req: Request) {
+    const userId = req.user!.id;
+    const result = await this.userService.switchToSaller(userId);
+    return {
+      message: 'Switch to seller update',
+      data: result,
     };
   }
 }
