@@ -4,21 +4,13 @@ import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 export class CreateShopDto {
   @ApiProperty({ description: 'Shop name' })
   @IsString()
-  shopname: string;
+  shopname!: string;
 
-  @ApiPropertyOptional({
-    type: 'string',
-    format: 'binary',
-    description: 'Shop Logo',
-  })
+  @ApiPropertyOptional({ type: 'string', format: 'binary', description: 'Shop Logo' })
   @IsOptional()
   shopLogo?: any;
 
-  @ApiPropertyOptional({
-    type: 'string',
-    format: 'binary',
-    description: 'Shop Cover Photo',
-  })
+  @ApiPropertyOptional({ type: 'string', format: 'binary', description: 'Shop Cover Photo' })
   @IsOptional()
   shopCoverPhoto?: any;
 
@@ -26,4 +18,21 @@ export class CreateShopDto {
   @IsOptional()
   @IsString()
   shopdiscribtion?: string;
+
+  @ApiPropertyOptional({
+    type: 'array',
+    items: { type: 'string', format: 'binary' },
+    description: 'National ID images',
+  })
+  @IsOptional()
+  nationalId?: any[];
+
+  @ApiPropertyOptional({ type: 'string', format: 'binary', description: 'Trade License' })
+  @IsOptional()
+  tradeLicense?: any;
+
+  @ApiPropertyOptional({ description: 'Additional shop info' })
+  @IsOptional()
+  @IsString()
+  additionalShopInfo?: string;
 }

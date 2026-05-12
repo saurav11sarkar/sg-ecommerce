@@ -31,6 +31,8 @@ export type ShopMinAggregateOutputType = {
   shopCoverPhoto: string | null
   shopdiscribtion: string | null
   sellerId: string | null
+  tradeLicense: string | null
+  additionalShopInfo: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -42,6 +44,8 @@ export type ShopMaxAggregateOutputType = {
   shopCoverPhoto: string | null
   shopdiscribtion: string | null
   sellerId: string | null
+  tradeLicense: string | null
+  additionalShopInfo: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -53,6 +57,9 @@ export type ShopCountAggregateOutputType = {
   shopCoverPhoto: number
   shopdiscribtion: number
   sellerId: number
+  nationalId: number
+  tradeLicense: number
+  additionalShopInfo: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -66,6 +73,8 @@ export type ShopMinAggregateInputType = {
   shopCoverPhoto?: true
   shopdiscribtion?: true
   sellerId?: true
+  tradeLicense?: true
+  additionalShopInfo?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -77,6 +86,8 @@ export type ShopMaxAggregateInputType = {
   shopCoverPhoto?: true
   shopdiscribtion?: true
   sellerId?: true
+  tradeLicense?: true
+  additionalShopInfo?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -88,6 +99,9 @@ export type ShopCountAggregateInputType = {
   shopCoverPhoto?: true
   shopdiscribtion?: true
   sellerId?: true
+  nationalId?: true
+  tradeLicense?: true
+  additionalShopInfo?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -172,6 +186,9 @@ export type ShopGroupByOutputType = {
   shopCoverPhoto: string | null
   shopdiscribtion: string | null
   sellerId: string
+  nationalId: string[]
+  tradeLicense: string | null
+  additionalShopInfo: string | null
   createdAt: Date
   updatedAt: Date
   _count: ShopCountAggregateOutputType | null
@@ -204,9 +221,13 @@ export type ShopWhereInput = {
   shopCoverPhoto?: Prisma.StringNullableFilter<"Shop"> | string | null
   shopdiscribtion?: Prisma.StringNullableFilter<"Shop"> | string | null
   sellerId?: Prisma.StringFilter<"Shop"> | string
+  nationalId?: Prisma.StringNullableListFilter<"Shop">
+  tradeLicense?: Prisma.StringNullableFilter<"Shop"> | string | null
+  additionalShopInfo?: Prisma.StringNullableFilter<"Shop"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Shop"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shop"> | Date | string
   seller?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  products?: Prisma.ProductListRelationFilter
 }
 
 export type ShopOrderByWithRelationInput = {
@@ -216,9 +237,13 @@ export type ShopOrderByWithRelationInput = {
   shopCoverPhoto?: Prisma.SortOrderInput | Prisma.SortOrder
   shopdiscribtion?: Prisma.SortOrderInput | Prisma.SortOrder
   sellerId?: Prisma.SortOrder
+  nationalId?: Prisma.SortOrder
+  tradeLicense?: Prisma.SortOrderInput | Prisma.SortOrder
+  additionalShopInfo?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   seller?: Prisma.UserOrderByWithRelationInput
+  products?: Prisma.ProductOrderByRelationAggregateInput
 }
 
 export type ShopWhereUniqueInput = Prisma.AtLeast<{
@@ -231,9 +256,13 @@ export type ShopWhereUniqueInput = Prisma.AtLeast<{
   shopLogo?: Prisma.StringNullableFilter<"Shop"> | string | null
   shopCoverPhoto?: Prisma.StringNullableFilter<"Shop"> | string | null
   shopdiscribtion?: Prisma.StringNullableFilter<"Shop"> | string | null
+  nationalId?: Prisma.StringNullableListFilter<"Shop">
+  tradeLicense?: Prisma.StringNullableFilter<"Shop"> | string | null
+  additionalShopInfo?: Prisma.StringNullableFilter<"Shop"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Shop"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Shop"> | Date | string
   seller?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  products?: Prisma.ProductListRelationFilter
 }, "id" | "sellerId">
 
 export type ShopOrderByWithAggregationInput = {
@@ -243,6 +272,9 @@ export type ShopOrderByWithAggregationInput = {
   shopCoverPhoto?: Prisma.SortOrderInput | Prisma.SortOrder
   shopdiscribtion?: Prisma.SortOrderInput | Prisma.SortOrder
   sellerId?: Prisma.SortOrder
+  nationalId?: Prisma.SortOrder
+  tradeLicense?: Prisma.SortOrderInput | Prisma.SortOrder
+  additionalShopInfo?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ShopCountOrderByAggregateInput
@@ -260,6 +292,9 @@ export type ShopScalarWhereWithAggregatesInput = {
   shopCoverPhoto?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
   shopdiscribtion?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
   sellerId?: Prisma.StringWithAggregatesFilter<"Shop"> | string
+  nationalId?: Prisma.StringNullableListFilter<"Shop">
+  tradeLicense?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
+  additionalShopInfo?: Prisma.StringNullableWithAggregatesFilter<"Shop"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Shop"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Shop"> | Date | string
 }
@@ -270,9 +305,13 @@ export type ShopCreateInput = {
   shopLogo?: string | null
   shopCoverPhoto?: string | null
   shopdiscribtion?: string | null
+  nationalId?: Prisma.ShopCreatenationalIdInput | string[]
+  tradeLicense?: string | null
+  additionalShopInfo?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   seller: Prisma.UserCreateNestedOneWithoutShopIdInput
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateInput = {
@@ -282,8 +321,12 @@ export type ShopUncheckedCreateInput = {
   shopCoverPhoto?: string | null
   shopdiscribtion?: string | null
   sellerId: string
+  nationalId?: Prisma.ShopCreatenationalIdInput | string[]
+  tradeLicense?: string | null
+  additionalShopInfo?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopUpdateInput = {
@@ -292,9 +335,13 @@ export type ShopUpdateInput = {
   shopLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shopCoverPhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shopdiscribtion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationalId?: Prisma.ShopUpdatenationalIdInput | string[]
+  tradeLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalShopInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   seller?: Prisma.UserUpdateOneRequiredWithoutShopIdNestedInput
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateInput = {
@@ -304,8 +351,12 @@ export type ShopUncheckedUpdateInput = {
   shopCoverPhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shopdiscribtion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  nationalId?: Prisma.ShopUpdatenationalIdInput | string[]
+  tradeLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalShopInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
 }
 
 export type ShopCreateManyInput = {
@@ -315,6 +366,9 @@ export type ShopCreateManyInput = {
   shopCoverPhoto?: string | null
   shopdiscribtion?: string | null
   sellerId: string
+  nationalId?: Prisma.ShopCreatenationalIdInput | string[]
+  tradeLicense?: string | null
+  additionalShopInfo?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -325,6 +379,9 @@ export type ShopUpdateManyMutationInput = {
   shopLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shopCoverPhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shopdiscribtion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationalId?: Prisma.ShopUpdatenationalIdInput | string[]
+  tradeLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalShopInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -336,8 +393,16 @@ export type ShopUncheckedUpdateManyInput = {
   shopCoverPhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shopdiscribtion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  nationalId?: Prisma.ShopUpdatenationalIdInput | string[]
+  tradeLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalShopInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ShopScalarRelationFilter = {
+  is?: Prisma.ShopWhereInput
+  isNot?: Prisma.ShopWhereInput
 }
 
 export type ShopCountOrderByAggregateInput = {
@@ -347,6 +412,9 @@ export type ShopCountOrderByAggregateInput = {
   shopCoverPhoto?: Prisma.SortOrder
   shopdiscribtion?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
+  nationalId?: Prisma.SortOrder
+  tradeLicense?: Prisma.SortOrder
+  additionalShopInfo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -358,6 +426,8 @@ export type ShopMaxOrderByAggregateInput = {
   shopCoverPhoto?: Prisma.SortOrder
   shopdiscribtion?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
+  tradeLicense?: Prisma.SortOrder
+  additionalShopInfo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -369,6 +439,8 @@ export type ShopMinOrderByAggregateInput = {
   shopCoverPhoto?: Prisma.SortOrder
   shopdiscribtion?: Prisma.SortOrder
   sellerId?: Prisma.SortOrder
+  tradeLicense?: Prisma.SortOrder
+  additionalShopInfo?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -376,6 +448,29 @@ export type ShopMinOrderByAggregateInput = {
 export type ShopNullableScalarRelationFilter = {
   is?: Prisma.ShopWhereInput | null
   isNot?: Prisma.ShopWhereInput | null
+}
+
+export type ShopCreateNestedOneWithoutProductsInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutProductsInput, Prisma.ShopUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutProductsInput
+  connect?: Prisma.ShopWhereUniqueInput
+}
+
+export type ShopUpdateOneRequiredWithoutProductsNestedInput = {
+  create?: Prisma.XOR<Prisma.ShopCreateWithoutProductsInput, Prisma.ShopUncheckedCreateWithoutProductsInput>
+  connectOrCreate?: Prisma.ShopCreateOrConnectWithoutProductsInput
+  upsert?: Prisma.ShopUpsertWithoutProductsInput
+  connect?: Prisma.ShopWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutProductsInput, Prisma.ShopUpdateWithoutProductsInput>, Prisma.ShopUncheckedUpdateWithoutProductsInput>
+}
+
+export type ShopCreatenationalIdInput = {
+  set: string[]
+}
+
+export type ShopUpdatenationalIdInput = {
+  set?: string[]
+  push?: string | string[]
 }
 
 export type ShopCreateNestedOneWithoutSellerInput = {
@@ -410,14 +505,90 @@ export type ShopUncheckedUpdateOneWithoutSellerNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ShopUpdateToOneWithWhereWithoutSellerInput, Prisma.ShopUpdateWithoutSellerInput>, Prisma.ShopUncheckedUpdateWithoutSellerInput>
 }
 
+export type ShopCreateWithoutProductsInput = {
+  id?: string
+  shopname: string
+  shopLogo?: string | null
+  shopCoverPhoto?: string | null
+  shopdiscribtion?: string | null
+  nationalId?: Prisma.ShopCreatenationalIdInput | string[]
+  tradeLicense?: string | null
+  additionalShopInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  seller: Prisma.UserCreateNestedOneWithoutShopIdInput
+}
+
+export type ShopUncheckedCreateWithoutProductsInput = {
+  id?: string
+  shopname: string
+  shopLogo?: string | null
+  shopCoverPhoto?: string | null
+  shopdiscribtion?: string | null
+  sellerId: string
+  nationalId?: Prisma.ShopCreatenationalIdInput | string[]
+  tradeLicense?: string | null
+  additionalShopInfo?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ShopCreateOrConnectWithoutProductsInput = {
+  where: Prisma.ShopWhereUniqueInput
+  create: Prisma.XOR<Prisma.ShopCreateWithoutProductsInput, Prisma.ShopUncheckedCreateWithoutProductsInput>
+}
+
+export type ShopUpsertWithoutProductsInput = {
+  update: Prisma.XOR<Prisma.ShopUpdateWithoutProductsInput, Prisma.ShopUncheckedUpdateWithoutProductsInput>
+  create: Prisma.XOR<Prisma.ShopCreateWithoutProductsInput, Prisma.ShopUncheckedCreateWithoutProductsInput>
+  where?: Prisma.ShopWhereInput
+}
+
+export type ShopUpdateToOneWithWhereWithoutProductsInput = {
+  where?: Prisma.ShopWhereInput
+  data: Prisma.XOR<Prisma.ShopUpdateWithoutProductsInput, Prisma.ShopUncheckedUpdateWithoutProductsInput>
+}
+
+export type ShopUpdateWithoutProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shopname?: Prisma.StringFieldUpdateOperationsInput | string
+  shopLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopCoverPhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopdiscribtion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationalId?: Prisma.ShopUpdatenationalIdInput | string[]
+  tradeLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalShopInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  seller?: Prisma.UserUpdateOneRequiredWithoutShopIdNestedInput
+}
+
+export type ShopUncheckedUpdateWithoutProductsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  shopname?: Prisma.StringFieldUpdateOperationsInput | string
+  shopLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopCoverPhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  shopdiscribtion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  sellerId?: Prisma.StringFieldUpdateOperationsInput | string
+  nationalId?: Prisma.ShopUpdatenationalIdInput | string[]
+  tradeLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalShopInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
 export type ShopCreateWithoutSellerInput = {
   id?: string
   shopname: string
   shopLogo?: string | null
   shopCoverPhoto?: string | null
   shopdiscribtion?: string | null
+  nationalId?: Prisma.ShopCreatenationalIdInput | string[]
+  tradeLicense?: string | null
+  additionalShopInfo?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  products?: Prisma.ProductCreateNestedManyWithoutShopInput
 }
 
 export type ShopUncheckedCreateWithoutSellerInput = {
@@ -426,8 +597,12 @@ export type ShopUncheckedCreateWithoutSellerInput = {
   shopLogo?: string | null
   shopCoverPhoto?: string | null
   shopdiscribtion?: string | null
+  nationalId?: Prisma.ShopCreatenationalIdInput | string[]
+  tradeLicense?: string | null
+  additionalShopInfo?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  products?: Prisma.ProductUncheckedCreateNestedManyWithoutShopInput
 }
 
 export type ShopCreateOrConnectWithoutSellerInput = {
@@ -452,8 +627,12 @@ export type ShopUpdateWithoutSellerInput = {
   shopLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shopCoverPhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shopdiscribtion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationalId?: Prisma.ShopUpdatenationalIdInput | string[]
+  tradeLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalShopInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUpdateManyWithoutShopNestedInput
 }
 
 export type ShopUncheckedUpdateWithoutSellerInput = {
@@ -462,10 +641,43 @@ export type ShopUncheckedUpdateWithoutSellerInput = {
   shopLogo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shopCoverPhoto?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shopdiscribtion?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  nationalId?: Prisma.ShopUpdatenationalIdInput | string[]
+  tradeLicense?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  additionalShopInfo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  products?: Prisma.ProductUncheckedUpdateManyWithoutShopNestedInput
 }
 
+
+/**
+ * Count Type ShopCountOutputType
+ */
+
+export type ShopCountOutputType = {
+  products: number
+}
+
+export type ShopCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  products?: boolean | ShopCountOutputTypeCountProductsArgs
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ShopCountOutputType
+   */
+  select?: Prisma.ShopCountOutputTypeSelect<ExtArgs> | null
+}
+
+/**
+ * ShopCountOutputType without action
+ */
+export type ShopCountOutputTypeCountProductsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ProductWhereInput
+}
 
 
 export type ShopSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -475,9 +687,14 @@ export type ShopSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   shopCoverPhoto?: boolean
   shopdiscribtion?: boolean
   sellerId?: boolean
+  nationalId?: boolean
+  tradeLicense?: boolean
+  additionalShopInfo?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  products?: boolean | Prisma.Shop$productsArgs<ExtArgs>
+  _count?: boolean | Prisma.ShopCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["shop"]>
 
 export type ShopSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -487,6 +704,9 @@ export type ShopSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   shopCoverPhoto?: boolean
   shopdiscribtion?: boolean
   sellerId?: boolean
+  nationalId?: boolean
+  tradeLicense?: boolean
+  additionalShopInfo?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -499,6 +719,9 @@ export type ShopSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   shopCoverPhoto?: boolean
   shopdiscribtion?: boolean
   sellerId?: boolean
+  nationalId?: boolean
+  tradeLicense?: boolean
+  additionalShopInfo?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -511,13 +734,18 @@ export type ShopSelectScalar = {
   shopCoverPhoto?: boolean
   shopdiscribtion?: boolean
   sellerId?: boolean
+  nationalId?: boolean
+  tradeLicense?: boolean
+  additionalShopInfo?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ShopOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopname" | "shopLogo" | "shopCoverPhoto" | "shopdiscribtion" | "sellerId" | "createdAt" | "updatedAt", ExtArgs["result"]["shop"]>
+export type ShopOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "shopname" | "shopLogo" | "shopCoverPhoto" | "shopdiscribtion" | "sellerId" | "nationalId" | "tradeLicense" | "additionalShopInfo" | "createdAt" | "updatedAt", ExtArgs["result"]["shop"]>
 export type ShopInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  products?: boolean | Prisma.Shop$productsArgs<ExtArgs>
+  _count?: boolean | Prisma.ShopCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ShopIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   seller?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -530,6 +758,7 @@ export type $ShopPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
   name: "Shop"
   objects: {
     seller: Prisma.$UserPayload<ExtArgs>
+    products: Prisma.$ProductPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -538,6 +767,9 @@ export type $ShopPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     shopCoverPhoto: string | null
     shopdiscribtion: string | null
     sellerId: string
+    nationalId: string[]
+    tradeLicense: string | null
+    additionalShopInfo: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["shop"]>
@@ -935,6 +1167,7 @@ readonly fields: ShopFieldRefs;
 export interface Prisma__ShopClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   seller<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  products<T extends Prisma.Shop$productsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Shop$productsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ProductPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -970,6 +1203,9 @@ export interface ShopFieldRefs {
   readonly shopCoverPhoto: Prisma.FieldRef<"Shop", 'String'>
   readonly shopdiscribtion: Prisma.FieldRef<"Shop", 'String'>
   readonly sellerId: Prisma.FieldRef<"Shop", 'String'>
+  readonly nationalId: Prisma.FieldRef<"Shop", 'String[]'>
+  readonly tradeLicense: Prisma.FieldRef<"Shop", 'String'>
+  readonly additionalShopInfo: Prisma.FieldRef<"Shop", 'String'>
   readonly createdAt: Prisma.FieldRef<"Shop", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Shop", 'DateTime'>
 }
@@ -1370,6 +1606,30 @@ export type ShopDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
    * Limit how many Shops to delete.
    */
   limit?: number
+}
+
+/**
+ * Shop.products
+ */
+export type Shop$productsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Product
+   */
+  select?: Prisma.ProductSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Product
+   */
+  omit?: Prisma.ProductOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ProductInclude<ExtArgs> | null
+  where?: Prisma.ProductWhereInput
+  orderBy?: Prisma.ProductOrderByWithRelationInput | Prisma.ProductOrderByWithRelationInput[]
+  cursor?: Prisma.ProductWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ProductScalarFieldEnum | Prisma.ProductScalarFieldEnum[]
 }
 
 /**
