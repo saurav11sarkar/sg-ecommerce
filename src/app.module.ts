@@ -8,9 +8,10 @@ import { AuthModule } from './app/module/auth/auth.module';
 import { CategoryModule } from './app/module/category/category.module';
 import { BannerModule } from './app/module/banner/banner.module';
 import { ShopModule } from './app/module/shop/shop.module';
+import { ProductModule } from './app/module/product/product.module';
 
 @Module({
-  imports: [UserModule, PrismaModule, ConfigModule.forRoot({ isGlobal: true }), AuthModule, CategoryModule, BannerModule, ShopModule],
+  imports: [UserModule, PrismaModule, ConfigModule.forRoot({ isGlobal: true }), AuthModule, CategoryModule, BannerModule, ShopModule, ProductModule],
   controllers: [AppController],
   providers: [AppService],
 })

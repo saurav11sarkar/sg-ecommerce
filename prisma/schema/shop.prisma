@@ -1,11 +1,15 @@
 model Shop {
-    id              String  @id @default(uuid())
-    shopname        String
-    shopLogo        String?
-    shopCoverPhoto  String?
-    shopdiscribtion String?
-    sellerId        String  @unique
-    seller          User    @relation(fields: [sellerId], references: [id])
+    id                 String    @id @default(uuid())
+    shopname           String
+    shopLogo           String?
+    shopCoverPhoto     String?
+    shopdiscribtion    String?
+    sellerId           String    @unique
+    seller             User      @relation(fields: [sellerId], references: [id])
+    products           Product[]
+    nationalId         String[]
+    tradeLicense       String?
+    additionalShopInfo String?
 
     createdAt DateTime @default(now())
     updatedAt DateTime @updatedAt

@@ -25,3 +25,12 @@ export const SellerStatus = {
 } as const
 
 export type SellerStatus = (typeof SellerStatus)[keyof typeof SellerStatus]
+
+
+export const ProductStatus = {
+  pending: 'pending',
+  approved: 'approved',
+  rejected: 'rejected'
+} as const
+
+export type ProductStatus = (typeof ProductStatus)[keyof typeof ProductStatus]

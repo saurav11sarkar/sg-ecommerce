@@ -4,7 +4,13 @@ enum UserRole {
     seller
 }
 
-enum SellerStatus{
+enum SellerStatus {
+    pending
+    approved
+    rejected
+}
+
+enum ProductStatus {
     pending
     approved
     rejected

@@ -1,0 +1,19 @@
+model Product {
+  id              String        @id @default(uuid())
+  title           String
+  price           Int
+  quantityKg      Int?
+  minimalQuantity Int?
+  description     String?
+  categoryId      String
+  category        Category      @relation(fields: [categoryId], references: [id])
+  shopId          String
+  shop            Shop          @relation(fields: [shopId], references: [id])
+  thumbnail       String?
+  pictures        String[]
+  status          ProductStatus @default(pending)
+  createdAt       DateTime      @default(now())
+  updatedAt       DateTime      @updatedAt
+
+  @@map("products")
+}
