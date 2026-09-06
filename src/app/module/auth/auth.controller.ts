@@ -1,23 +1,22 @@
 import {
-  Controller,
-  Post,
   Body,
-  Patch,
+  Controller,
   HttpCode,
   HttpStatus,
+  Patch,
+  Post,
   Res,
 } from '@nestjs/common';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import type { Response } from 'express';
 import { AuthService } from './auth.service';
 import {
-  CreateAuthDto,
-  LoginAuthDto,
-  ForgotPasswordDto,
-  VerifyEmailDto,
-  ResetPasswordDto,
   ChangePasswordDto,
+  ForgotPasswordDto,
+  LoginAuthDto,
+  ResetPasswordDto,
+  VerifyEmailDto,
 } from './dto/create-auth.dto';
-import { ApiTags, ApiOperation, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
-import type { Response } from 'express';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -58,15 +57,46 @@ export class AuthController {
     };
   }
 
-  @Patch('update-signup')
+  @Patch('set-password')
   @ApiOperation({ summary: 'Complete Signup (set password & info)' })
-  @ApiBody({ type: CreateAuthDto })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        email: { type: 'string', example: 'user@example.com' },
+        password: { type: 'string', example: 'user@123' },
+      },
+      required: ['email', 'password'],
+    },
+  })
   @HttpCode(HttpStatus.OK)
-  async updateSignup(@Body() payload: CreateAuthDto) {
-    const result = await this.authService.updateSignup(payload);
+  async setPassword(@Body() payload: { email: string; password: string }) {
+    const result = await this.authService.setPassword(payload);
 
     return {
-      message: 'User updated successfully',
+      message: 'User password set successfully',
+      data: result,
+    };
+  }
+
+  @Patch('set-country')
+  @ApiOperation({ summary: 'Complete Signup (set country & info)' })
+  @ApiBody({
+    schema: {
+      type: 'object',
+      properties: {
+        email: { type: 'string', example: 'user@example.com' },
+        country: { type: 'string', example: 'Bangladesh' },
+      },
+      required: ['email', 'country'],
+    },
+  })
+  @HttpCode(HttpStatus.OK)
+  async setCountry(@Body() payload: { email: string; country: string }) {
+    const result = await this.authService.setCountery(payload);
+
+    return {
+      message: 'User country set successfully',
       data: result,
     };
   }

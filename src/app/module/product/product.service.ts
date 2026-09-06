@@ -1,12 +1,12 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { SellerStatus } from 'prisma/generated/prisma/enums';
+import buildWhereConditions from 'src/app/helper/buildWhereConditions';
+import { fileUpload } from 'src/app/helper/fileUploder';
+import paginationHelper, { IOptions } from 'src/app/helper/pagenation';
+import { IFilterParams } from 'src/app/helper/pick';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateProductDto } from './dto/create-product.dto';
 import { UpdateProductDto } from './dto/update-product.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { SellerStatus } from 'prisma/generated/prisma/enums';
-import { fileUpload } from 'src/app/helper/fileUploder';
-import { IFilterParams } from 'src/app/helper/pick';
-import paginationHelper, { IOptions } from 'src/app/helper/pagenation';
-import buildWhereConditions from 'src/app/helper/buildWhereConditions';
 
 type ProductFiles = {
   thumbnail?: Express.Multer.File;
@@ -105,7 +105,6 @@ export class ProductService {
               seller: {
                 select: {
                   id: true,
-                  name: true,
                   email: true,
                   phone: true,
                   sellerStatus: true,

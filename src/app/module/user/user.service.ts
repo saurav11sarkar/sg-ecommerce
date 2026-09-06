@@ -1,13 +1,13 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import bcrypt from 'bcrypt';
+import { SellerStatus, UserRole } from 'prisma/generated/prisma/enums';
+import config from 'src/app/config';
+import buildWhereConditions from 'src/app/helper/buildWhereConditions';
+import paginationHelper, { IOptions } from 'src/app/helper/pagenation';
+import { IFilterParams } from 'src/app/helper/pick';
+import { PrismaService } from 'src/prisma/prisma.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import bcrypt from 'bcrypt';
-import config from 'src/app/config';
-import { IFilterParams } from 'src/app/helper/pick';
-import paginationHelper, { IOptions } from 'src/app/helper/pagenation';
-import buildWhereConditions from 'src/app/helper/buildWhereConditions';
-import { SellerStatus, UserRole } from 'prisma/generated/prisma/enums';
 
 @Injectable()
 export class UserService {
@@ -88,6 +88,22 @@ export class UserService {
       },
     });
 
+    return result;
+  }
+
+  async updateMyProfile(userId: string, updateUserDto: UpdateUserDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+    });
+
+    if (!user) throw new HttpException('User not found', 404);
+
+    const result = await this.prisma.user.update({
+      where: { id: user.id },
+      data: {
+        ...updateUserDto,
+      },
+    });
     return result;
   }
 }
