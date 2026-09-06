@@ -1,17 +1,11 @@
-import {
-  BadRequestException,
-  HttpException,
-  Injectable,
-  InternalServerErrorException,
-} from '@nestjs/common';
-import { CreateAuthDto, LoginAuthDto } from './dto/create-auth.dto';
-import { UpdateAuthDto } from './dto/update-auth.dto';
-import { PrismaService } from 'src/prisma/prisma.service';
-import { JwtService, JwtSignOptions } from '@nestjs/jwt';
-import sendMailer from 'src/app/helper/sendMailer';
+import { BadRequestException, HttpException, Injectable } from '@nestjs/common';
+import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
-import config from 'src/app/config';
 import { Response } from 'express';
+import config from 'src/app/config';
+import sendMailer from 'src/app/helper/sendMailer';
+import { PrismaService } from 'src/prisma/prisma.service';
+import { LoginAuthDto } from './dto/create-auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -62,7 +56,7 @@ export class AuthService {
     });
   }
 
-  async updateSignup(payload: Partial<CreateAuthDto>) {
+  async setPassword(payload: { email: string; password: string }) {
     const user = await this.prisma.user.findUnique({
       where: { email: payload.email },
     });
@@ -88,6 +82,24 @@ export class AuthService {
       },
     });
 
+    return result;
+  }
+
+  async setCountery(payload: { email: string; country: string }) {
+    const user = await this.prisma.user.findUnique({
+      where: { email: payload.email },
+    });
+
+    if (!user) throw new BadRequestException('User not found');
+
+    if (!user.isVerified) throw new BadRequestException('User not verified');
+
+    const result = await this.prisma.user.update({
+      where: { email: payload.email },
+      data: {
+        country: payload.country,
+      },
+    });
     return result;
   }
 

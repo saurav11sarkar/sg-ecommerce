@@ -1,17 +1,14 @@
 import {
-  Controller,
-  Post,
   Body,
+  Controller,
+  Get,
   HttpCode,
   HttpStatus,
-  Get,
-  Req,
   Patch,
+  Post,
+  Req,
   UseGuards,
 } from '@nestjs/common';
-import { UserService } from './user.service';
-import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
 import {
   ApiBearerAuth,
   ApiOperation,
@@ -19,9 +16,12 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import type { Request } from 'express';
+import { UserRole } from 'prisma/generated/prisma/enums';
 import pick from 'src/app/helper/pick';
 import { AuthGuard } from 'src/app/middlewares/auth.guard';
-import { UserRole } from 'prisma/generated/prisma/enums';
+import { CreateUserDto } from './dto/create-user.dto';
+import { UpdateUserDto } from './dto/update-user.dto';
+import { UserService } from './user.service';
 
 @ApiTags('user')
 @Controller('user')
@@ -119,6 +119,28 @@ export class UserController {
     const result = await this.userService.switchToSaller(userId);
     return {
       message: 'Switch to seller update',
+      data: result,
+    };
+  }
+
+  @Patch('update-profile')
+  @ApiOperation({
+    summary: 'update my profile',
+  })
+  @ApiBearerAuth('access-token')
+  @UseGuards(AuthGuard('seller', 'buyer', 'admin'))
+  @HttpCode(HttpStatus.OK)
+  async updateMyProfile(
+    @Req() req: Request,
+    @Body() updateUserDto: UpdateUserDto,
+  ) {
+    const userId = req.user!.id;
+    const result = await this.userService.updateMyProfile(
+      userId,
+      updateUserDto,
+    );
+    return {
+      message: 'update my profile update',
       data: result,
     };
   }
