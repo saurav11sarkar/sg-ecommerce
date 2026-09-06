@@ -54,7 +54,7 @@ export const ModelName = {
   Banner: 'Banner',
   Category: 'Category',
   Product: 'Product',
-  Shop: 'Shop',
+  Seller: 'Seller',
   User: 'User'
 } as const
 
@@ -108,7 +108,7 @@ export const ProductScalarFieldEnum = {
   minimalQuantity: 'minimalQuantity',
   description: 'description',
   categoryId: 'categoryId',
-  shopId: 'shopId',
+  sellerId: 'sellerId',
   thumbnail: 'thumbnail',
   pictures: 'pictures',
   status: 'status',
@@ -119,21 +119,22 @@ export const ProductScalarFieldEnum = {
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
 
 
-export const ShopScalarFieldEnum = {
+export const SellerScalarFieldEnum = {
   id: 'id',
-  shopname: 'shopname',
-  shopLogo: 'shopLogo',
+  shopName: 'shopName',
+  shopPhoto: 'shopPhoto',
   shopCoverPhoto: 'shopCoverPhoto',
-  shopdiscribtion: 'shopdiscribtion',
-  sellerId: 'sellerId',
+  discription: 'discription',
+  sellerStatus: 'sellerStatus',
   nationalId: 'nationalId',
   tradeLicense: 'tradeLicense',
-  additionalShopInfo: 'additionalShopInfo',
+  shopInfo: 'shopInfo',
+  sellerId: 'sellerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type ShopScalarFieldEnum = (typeof ShopScalarFieldEnum)[keyof typeof ShopScalarFieldEnum]
+export type SellerScalarFieldEnum = (typeof SellerScalarFieldEnum)[keyof typeof SellerScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -153,7 +154,6 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   otp: 'otp',
   otpExpiry: 'otpExpiry',
-  sellerStatus: 'sellerStatus',
   verifiedForget: 'verifiedForget',
   isVerified: 'isVerified',
   createdAt: 'createdAt',

@@ -387,7 +387,7 @@ export const ModelName = {
   Banner: 'Banner',
   Category: 'Category',
   Product: 'Product',
-  Shop: 'Shop',
+  Seller: 'Seller',
   User: 'User'
 } as const
 
@@ -404,7 +404,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "banner" | "category" | "product" | "shop" | "user"
+    modelProps: "banner" | "category" | "product" | "seller" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -630,77 +630,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    Shop: {
-      payload: Prisma.$ShopPayload<ExtArgs>
-      fields: Prisma.ShopFieldRefs
+    Seller: {
+      payload: Prisma.$SellerPayload<ExtArgs>
+      fields: Prisma.SellerFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.ShopFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopPayload> | null
+          args: Prisma.SellerFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SellerPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.ShopFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopPayload>
+          args: Prisma.SellerFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SellerPayload>
         }
         findFirst: {
-          args: Prisma.ShopFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopPayload> | null
+          args: Prisma.SellerFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SellerPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.ShopFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopPayload>
+          args: Prisma.SellerFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SellerPayload>
         }
         findMany: {
-          args: Prisma.ShopFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopPayload>[]
+          args: Prisma.SellerFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SellerPayload>[]
         }
         create: {
-          args: Prisma.ShopCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopPayload>
+          args: Prisma.SellerCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SellerPayload>
         }
         createMany: {
-          args: Prisma.ShopCreateManyArgs<ExtArgs>
+          args: Prisma.SellerCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.ShopCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopPayload>[]
+          args: Prisma.SellerCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SellerPayload>[]
         }
         delete: {
-          args: Prisma.ShopDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopPayload>
+          args: Prisma.SellerDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SellerPayload>
         }
         update: {
-          args: Prisma.ShopUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopPayload>
+          args: Prisma.SellerUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SellerPayload>
         }
         deleteMany: {
-          args: Prisma.ShopDeleteManyArgs<ExtArgs>
+          args: Prisma.SellerDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.ShopUpdateManyArgs<ExtArgs>
+          args: Prisma.SellerUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.ShopUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopPayload>[]
+          args: Prisma.SellerUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SellerPayload>[]
         }
         upsert: {
-          args: Prisma.ShopUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$ShopPayload>
+          args: Prisma.SellerUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$SellerPayload>
         }
         aggregate: {
-          args: Prisma.ShopAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateShop>
+          args: Prisma.SellerAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateSeller>
         }
         groupBy: {
-          args: Prisma.ShopGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ShopGroupByOutputType>[]
+          args: Prisma.SellerGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SellerGroupByOutputType>[]
         }
         count: {
-          args: Prisma.ShopCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.ShopCountAggregateOutputType> | number
+          args: Prisma.SellerCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.SellerCountAggregateOutputType> | number
         }
       }
     }
@@ -851,7 +851,7 @@ export const ProductScalarFieldEnum = {
   minimalQuantity: 'minimalQuantity',
   description: 'description',
   categoryId: 'categoryId',
-  shopId: 'shopId',
+  sellerId: 'sellerId',
   thumbnail: 'thumbnail',
   pictures: 'pictures',
   status: 'status',
@@ -862,21 +862,22 @@ export const ProductScalarFieldEnum = {
 export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
 
 
-export const ShopScalarFieldEnum = {
+export const SellerScalarFieldEnum = {
   id: 'id',
-  shopname: 'shopname',
-  shopLogo: 'shopLogo',
+  shopName: 'shopName',
+  shopPhoto: 'shopPhoto',
   shopCoverPhoto: 'shopCoverPhoto',
-  shopdiscribtion: 'shopdiscribtion',
-  sellerId: 'sellerId',
+  discription: 'discription',
+  sellerStatus: 'sellerStatus',
   nationalId: 'nationalId',
   tradeLicense: 'tradeLicense',
-  additionalShopInfo: 'additionalShopInfo',
+  shopInfo: 'shopInfo',
+  sellerId: 'sellerId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type ShopScalarFieldEnum = (typeof ShopScalarFieldEnum)[keyof typeof ShopScalarFieldEnum]
+export type SellerScalarFieldEnum = (typeof SellerScalarFieldEnum)[keyof typeof SellerScalarFieldEnum]
 
 
 export const UserScalarFieldEnum = {
@@ -896,7 +897,6 @@ export const UserScalarFieldEnum = {
   phone: 'phone',
   otp: 'otp',
   otpExpiry: 'otpExpiry',
-  sellerStatus: 'sellerStatus',
   verifiedForget: 'verifiedForget',
   isVerified: 'isVerified',
   createdAt: 'createdAt',
@@ -993,6 +993,20 @@ export type ListEnumProductStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'SellerStatus'
+ */
+export type EnumSellerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SellerStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'SellerStatus[]'
+ */
+export type ListEnumSellerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SellerStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'UserRole'
  */
 export type EnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'UserRole'>
@@ -1010,20 +1024,6 @@ export type ListEnumUserRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$Pri
  * Reference to a field of type 'Boolean'
  */
 export type BooleanFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Boolean'>
-    
-
-
-/**
- * Reference to a field of type 'SellerStatus'
- */
-export type EnumSellerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SellerStatus'>
-    
-
-
-/**
- * Reference to a field of type 'SellerStatus[]'
- */
-export type ListEnumSellerStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'SellerStatus[]'>
     
 
 
@@ -1138,7 +1138,7 @@ export type GlobalOmitConfig = {
   banner?: Prisma.BannerOmit
   category?: Prisma.CategoryOmit
   product?: Prisma.ProductOmit
-  shop?: Prisma.ShopOmit
+  seller?: Prisma.SellerOmit
   user?: Prisma.UserOmit
 }
 

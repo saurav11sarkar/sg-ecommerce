@@ -1,0 +1,18 @@
+model Seller {
+  id             String        @id @default(uuid())
+  shopName       String
+  shopPhoto      String?
+  shopCoverPhoto String?
+  discription    String?
+  sellerStatus   SellerStatus? @default(pending)
+  nationalId     String[]
+  tradeLicense   String?
+  shopInfo       String?
+  sellerId       String        @unique
+  seller         User          @relation(fields: [sellerId], references: [id], onDelete: Cascade)
+  product        Product[]
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  @@map("seller")
+}
