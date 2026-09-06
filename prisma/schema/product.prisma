@@ -7,8 +7,8 @@ model Product {
   description     String?
   categoryId      String
   category        Category      @relation(fields: [categoryId], references: [id])
-  shopId          String
-  shop            Shop          @relation(fields: [shopId], references: [id])
+  sellerId        String
+  seller          Seller        @relation(fields: [sellerId], references: [id])
   thumbnail       String?
   pictures        String[]
   status          ProductStatus @default(pending)

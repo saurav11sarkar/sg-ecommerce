@@ -181,6 +181,23 @@ export type EnumProductStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumProductStatusFilter<$PrismaModel>
 }
 
+export type EnumSellerStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.SellerStatus | Prisma.EnumSellerStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumSellerStatusNullableFilter<$PrismaModel> | $Enums.SellerStatus | null
+}
+
+export type EnumSellerStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SellerStatus | Prisma.EnumSellerStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumSellerStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.SellerStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSellerStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSellerStatusNullableFilter<$PrismaModel>
+}
+
 export type EnumUserRoleNullableFilter<$PrismaModel = never> = {
   equals?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel> | null
   in?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel> | null
@@ -202,13 +219,6 @@ export type DateTimeNullableFilter<$PrismaModel = never> = {
   gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-}
-
-export type EnumSellerStatusNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.SellerStatus | Prisma.EnumSellerStatusFieldRefInput<$PrismaModel> | null
-  in?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumSellerStatusNullableFilter<$PrismaModel> | $Enums.SellerStatus | null
 }
 
 export type BoolNullableFilter<$PrismaModel = never> = {
@@ -246,16 +256,6 @@ export type DateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
-}
-
-export type EnumSellerStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.SellerStatus | Prisma.EnumSellerStatusFieldRefInput<$PrismaModel> | null
-  in?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumSellerStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.SellerStatus | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumSellerStatusNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumSellerStatusNullableFilter<$PrismaModel>
 }
 
 export type BoolNullableWithAggregatesFilter<$PrismaModel = never> = {
@@ -446,6 +446,23 @@ export type NestedEnumProductStatusWithAggregatesFilter<$PrismaModel = never> = 
   _max?: Prisma.NestedEnumProductStatusFilter<$PrismaModel>
 }
 
+export type NestedEnumSellerStatusNullableFilter<$PrismaModel = never> = {
+  equals?: $Enums.SellerStatus | Prisma.EnumSellerStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumSellerStatusNullableFilter<$PrismaModel> | $Enums.SellerStatus | null
+}
+
+export type NestedEnumSellerStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.SellerStatus | Prisma.EnumSellerStatusFieldRefInput<$PrismaModel> | null
+  in?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
+  notIn?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
+  not?: Prisma.NestedEnumSellerStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.SellerStatus | null
+  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumSellerStatusNullableFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumSellerStatusNullableFilter<$PrismaModel>
+}
+
 export type NestedEnumUserRoleNullableFilter<$PrismaModel = never> = {
   equals?: $Enums.UserRole | Prisma.EnumUserRoleFieldRefInput<$PrismaModel> | null
   in?: $Enums.UserRole[] | Prisma.ListEnumUserRoleFieldRefInput<$PrismaModel> | null
@@ -467,13 +484,6 @@ export type NestedDateTimeNullableFilter<$PrismaModel = never> = {
   gt?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   gte?: Date | string | Prisma.DateTimeFieldRefInput<$PrismaModel>
   not?: Prisma.NestedDateTimeNullableFilter<$PrismaModel> | Date | string | null
-}
-
-export type NestedEnumSellerStatusNullableFilter<$PrismaModel = never> = {
-  equals?: $Enums.SellerStatus | Prisma.EnumSellerStatusFieldRefInput<$PrismaModel> | null
-  in?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumSellerStatusNullableFilter<$PrismaModel> | $Enums.SellerStatus | null
 }
 
 export type NestedBoolNullableFilter<$PrismaModel = never> = {
@@ -511,16 +521,6 @@ export type NestedDateTimeNullableWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
   _min?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
   _max?: Prisma.NestedDateTimeNullableFilter<$PrismaModel>
-}
-
-export type NestedEnumSellerStatusNullableWithAggregatesFilter<$PrismaModel = never> = {
-  equals?: $Enums.SellerStatus | Prisma.EnumSellerStatusFieldRefInput<$PrismaModel> | null
-  in?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
-  notIn?: $Enums.SellerStatus[] | Prisma.ListEnumSellerStatusFieldRefInput<$PrismaModel> | null
-  not?: Prisma.NestedEnumSellerStatusNullableWithAggregatesFilter<$PrismaModel> | $Enums.SellerStatus | null
-  _count?: Prisma.NestedIntNullableFilter<$PrismaModel>
-  _min?: Prisma.NestedEnumSellerStatusNullableFilter<$PrismaModel>
-  _max?: Prisma.NestedEnumSellerStatusNullableFilter<$PrismaModel>
 }
 
 export type NestedBoolNullableWithAggregatesFilter<$PrismaModel = never> = {

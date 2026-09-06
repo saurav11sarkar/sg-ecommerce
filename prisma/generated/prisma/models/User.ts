@@ -41,7 +41,6 @@ export type UserMinAggregateOutputType = {
   phone: string | null
   otp: string | null
   otpExpiry: Date | null
-  sellerStatus: $Enums.SellerStatus | null
   verifiedForget: boolean | null
   isVerified: boolean | null
   createdAt: Date | null
@@ -65,7 +64,6 @@ export type UserMaxAggregateOutputType = {
   phone: string | null
   otp: string | null
   otpExpiry: Date | null
-  sellerStatus: $Enums.SellerStatus | null
   verifiedForget: boolean | null
   isVerified: boolean | null
   createdAt: Date | null
@@ -89,7 +87,6 @@ export type UserCountAggregateOutputType = {
   phone: number
   otp: number
   otpExpiry: number
-  sellerStatus: number
   verifiedForget: number
   isVerified: number
   createdAt: number
@@ -115,7 +112,6 @@ export type UserMinAggregateInputType = {
   phone?: true
   otp?: true
   otpExpiry?: true
-  sellerStatus?: true
   verifiedForget?: true
   isVerified?: true
   createdAt?: true
@@ -139,7 +135,6 @@ export type UserMaxAggregateInputType = {
   phone?: true
   otp?: true
   otpExpiry?: true
-  sellerStatus?: true
   verifiedForget?: true
   isVerified?: true
   createdAt?: true
@@ -163,7 +158,6 @@ export type UserCountAggregateInputType = {
   phone?: true
   otp?: true
   otpExpiry?: true
-  sellerStatus?: true
   verifiedForget?: true
   isVerified?: true
   createdAt?: true
@@ -260,7 +254,6 @@ export type UserGroupByOutputType = {
   phone: string | null
   otp: string | null
   otpExpiry: Date | null
-  sellerStatus: $Enums.SellerStatus | null
   verifiedForget: boolean | null
   isVerified: boolean
   createdAt: Date
@@ -305,12 +298,11 @@ export type UserWhereInput = {
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   otp?: Prisma.StringNullableFilter<"User"> | string | null
   otpExpiry?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  sellerStatus?: Prisma.EnumSellerStatusNullableFilter<"User"> | $Enums.SellerStatus | null
   verifiedForget?: Prisma.BoolNullableFilter<"User"> | boolean | null
   isVerified?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  shopId?: Prisma.XOR<Prisma.ShopNullableScalarRelationFilter, Prisma.ShopWhereInput> | null
+  seller?: Prisma.XOR<Prisma.SellerNullableScalarRelationFilter, Prisma.SellerWhereInput> | null
 }
 
 export type UserOrderByWithRelationInput = {
@@ -330,12 +322,11 @@ export type UserOrderByWithRelationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   otp?: Prisma.SortOrderInput | Prisma.SortOrder
   otpExpiry?: Prisma.SortOrderInput | Prisma.SortOrder
-  sellerStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   verifiedForget?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  shopId?: Prisma.ShopOrderByWithRelationInput
+  seller?: Prisma.SellerOrderByWithRelationInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -358,12 +349,11 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   otp?: Prisma.StringNullableFilter<"User"> | string | null
   otpExpiry?: Prisma.DateTimeNullableFilter<"User"> | Date | string | null
-  sellerStatus?: Prisma.EnumSellerStatusNullableFilter<"User"> | $Enums.SellerStatus | null
   verifiedForget?: Prisma.BoolNullableFilter<"User"> | boolean | null
   isVerified?: Prisma.BoolFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeFilter<"User"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"User"> | Date | string
-  shopId?: Prisma.XOR<Prisma.ShopNullableScalarRelationFilter, Prisma.ShopWhereInput> | null
+  seller?: Prisma.XOR<Prisma.SellerNullableScalarRelationFilter, Prisma.SellerWhereInput> | null
 }, "id" | "email">
 
 export type UserOrderByWithAggregationInput = {
@@ -383,7 +373,6 @@ export type UserOrderByWithAggregationInput = {
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   otp?: Prisma.SortOrderInput | Prisma.SortOrder
   otpExpiry?: Prisma.SortOrderInput | Prisma.SortOrder
-  sellerStatus?: Prisma.SortOrderInput | Prisma.SortOrder
   verifiedForget?: Prisma.SortOrderInput | Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -413,7 +402,6 @@ export type UserScalarWhereWithAggregatesInput = {
   phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   otp?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   otpExpiry?: Prisma.DateTimeNullableWithAggregatesFilter<"User"> | Date | string | null
-  sellerStatus?: Prisma.EnumSellerStatusNullableWithAggregatesFilter<"User"> | $Enums.SellerStatus | null
   verifiedForget?: Prisma.BoolNullableWithAggregatesFilter<"User"> | boolean | null
   isVerified?: Prisma.BoolWithAggregatesFilter<"User"> | boolean
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -437,12 +425,11 @@ export type UserCreateInput = {
   phone?: string | null
   otp?: string | null
   otpExpiry?: Date | string | null
-  sellerStatus?: $Enums.SellerStatus | null
   verifiedForget?: boolean | null
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  shopId?: Prisma.ShopCreateNestedOneWithoutSellerInput
+  seller?: Prisma.SellerCreateNestedOneWithoutSellerInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -462,12 +449,11 @@ export type UserUncheckedCreateInput = {
   phone?: string | null
   otp?: string | null
   otpExpiry?: Date | string | null
-  sellerStatus?: $Enums.SellerStatus | null
   verifiedForget?: boolean | null
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  shopId?: Prisma.ShopUncheckedCreateNestedOneWithoutSellerInput
+  seller?: Prisma.SellerUncheckedCreateNestedOneWithoutSellerInput
 }
 
 export type UserUpdateInput = {
@@ -487,12 +473,11 @@ export type UserUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otpExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  sellerStatus?: Prisma.NullableEnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus | null
   verifiedForget?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  shopId?: Prisma.ShopUpdateOneWithoutSellerNestedInput
+  seller?: Prisma.SellerUpdateOneWithoutSellerNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -512,12 +497,11 @@ export type UserUncheckedUpdateInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otpExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  sellerStatus?: Prisma.NullableEnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus | null
   verifiedForget?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  shopId?: Prisma.ShopUncheckedUpdateOneWithoutSellerNestedInput
+  seller?: Prisma.SellerUncheckedUpdateOneWithoutSellerNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -537,7 +521,6 @@ export type UserCreateManyInput = {
   phone?: string | null
   otp?: string | null
   otpExpiry?: Date | string | null
-  sellerStatus?: $Enums.SellerStatus | null
   verifiedForget?: boolean | null
   isVerified?: boolean
   createdAt?: Date | string
@@ -561,7 +544,6 @@ export type UserUpdateManyMutationInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otpExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  sellerStatus?: Prisma.NullableEnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus | null
   verifiedForget?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -585,7 +567,6 @@ export type UserUncheckedUpdateManyInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otpExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  sellerStatus?: Prisma.NullableEnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus | null
   verifiedForget?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -614,7 +595,6 @@ export type UserCountOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   otp?: Prisma.SortOrder
   otpExpiry?: Prisma.SortOrder
-  sellerStatus?: Prisma.SortOrder
   verifiedForget?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -638,7 +618,6 @@ export type UserMaxOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   otp?: Prisma.SortOrder
   otpExpiry?: Prisma.SortOrder
-  sellerStatus?: Prisma.SortOrder
   verifiedForget?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -662,25 +641,24 @@ export type UserMinOrderByAggregateInput = {
   phone?: Prisma.SortOrder
   otp?: Prisma.SortOrder
   otpExpiry?: Prisma.SortOrder
-  sellerStatus?: Prisma.SortOrder
   verifiedForget?: Prisma.SortOrder
   isVerified?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
-export type UserCreateNestedOneWithoutShopIdInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutShopIdInput, Prisma.UserUncheckedCreateWithoutShopIdInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShopIdInput
+export type UserCreateNestedOneWithoutSellerInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSellerInput, Prisma.UserUncheckedCreateWithoutSellerInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSellerInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutShopIdNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutShopIdInput, Prisma.UserUncheckedCreateWithoutShopIdInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutShopIdInput
-  upsert?: Prisma.UserUpsertWithoutShopIdInput
+export type UserUpdateOneRequiredWithoutSellerNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSellerInput, Prisma.UserUncheckedCreateWithoutSellerInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSellerInput
+  upsert?: Prisma.UserUpsertWithoutSellerInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutShopIdInput, Prisma.UserUpdateWithoutShopIdInput>, Prisma.UserUncheckedUpdateWithoutShopIdInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSellerInput, Prisma.UserUpdateWithoutSellerInput>, Prisma.UserUncheckedUpdateWithoutSellerInput>
 }
 
 export type NullableEnumUserRoleFieldUpdateOperationsInput = {
@@ -695,15 +673,11 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null
 }
 
-export type NullableEnumSellerStatusFieldUpdateOperationsInput = {
-  set?: $Enums.SellerStatus | null
-}
-
 export type NullableBoolFieldUpdateOperationsInput = {
   set?: boolean | null
 }
 
-export type UserCreateWithoutShopIdInput = {
+export type UserCreateWithoutSellerInput = {
   id?: string
   email: string
   firstName?: string | null
@@ -720,14 +694,13 @@ export type UserCreateWithoutShopIdInput = {
   phone?: string | null
   otp?: string | null
   otpExpiry?: Date | string | null
-  sellerStatus?: $Enums.SellerStatus | null
   verifiedForget?: boolean | null
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type UserUncheckedCreateWithoutShopIdInput = {
+export type UserUncheckedCreateWithoutSellerInput = {
   id?: string
   email: string
   firstName?: string | null
@@ -744,30 +717,29 @@ export type UserUncheckedCreateWithoutShopIdInput = {
   phone?: string | null
   otp?: string | null
   otpExpiry?: Date | string | null
-  sellerStatus?: $Enums.SellerStatus | null
   verifiedForget?: boolean | null
   isVerified?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type UserCreateOrConnectWithoutShopIdInput = {
+export type UserCreateOrConnectWithoutSellerInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutShopIdInput, Prisma.UserUncheckedCreateWithoutShopIdInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSellerInput, Prisma.UserUncheckedCreateWithoutSellerInput>
 }
 
-export type UserUpsertWithoutShopIdInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutShopIdInput, Prisma.UserUncheckedUpdateWithoutShopIdInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutShopIdInput, Prisma.UserUncheckedCreateWithoutShopIdInput>
+export type UserUpsertWithoutSellerInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSellerInput, Prisma.UserUncheckedUpdateWithoutSellerInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSellerInput, Prisma.UserUncheckedCreateWithoutSellerInput>
   where?: Prisma.UserWhereInput
 }
 
-export type UserUpdateToOneWithWhereWithoutShopIdInput = {
+export type UserUpdateToOneWithWhereWithoutSellerInput = {
   where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutShopIdInput, Prisma.UserUncheckedUpdateWithoutShopIdInput>
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSellerInput, Prisma.UserUncheckedUpdateWithoutSellerInput>
 }
 
-export type UserUpdateWithoutShopIdInput = {
+export type UserUpdateWithoutSellerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -784,14 +756,13 @@ export type UserUpdateWithoutShopIdInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otpExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  sellerStatus?: Prisma.NullableEnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus | null
   verifiedForget?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type UserUncheckedUpdateWithoutShopIdInput = {
+export type UserUncheckedUpdateWithoutSellerInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
   firstName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -808,7 +779,6 @@ export type UserUncheckedUpdateWithoutShopIdInput = {
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otp?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   otpExpiry?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  sellerStatus?: Prisma.NullableEnumSellerStatusFieldUpdateOperationsInput | $Enums.SellerStatus | null
   verifiedForget?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -834,12 +804,11 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   phone?: boolean
   otp?: boolean
   otpExpiry?: boolean
-  sellerStatus?: boolean
   verifiedForget?: boolean
   isVerified?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  shopId?: boolean | Prisma.User$shopIdArgs<ExtArgs>
+  seller?: boolean | Prisma.User$sellerArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -859,7 +828,6 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   otp?: boolean
   otpExpiry?: boolean
-  sellerStatus?: boolean
   verifiedForget?: boolean
   isVerified?: boolean
   createdAt?: boolean
@@ -883,7 +851,6 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   phone?: boolean
   otp?: boolean
   otpExpiry?: boolean
-  sellerStatus?: boolean
   verifiedForget?: boolean
   isVerified?: boolean
   createdAt?: boolean
@@ -907,16 +874,15 @@ export type UserSelectScalar = {
   phone?: boolean
   otp?: boolean
   otpExpiry?: boolean
-  sellerStatus?: boolean
   verifiedForget?: boolean
   isVerified?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "firstName" | "lastName" | "password" | "role" | "country" | "address" | "appartment" | "city" | "postcode" | "status" | "image" | "phone" | "otp" | "otpExpiry" | "sellerStatus" | "verifiedForget" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "email" | "firstName" | "lastName" | "password" | "role" | "country" | "address" | "appartment" | "city" | "postcode" | "status" | "image" | "phone" | "otp" | "otpExpiry" | "verifiedForget" | "isVerified" | "createdAt" | "updatedAt", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  shopId?: boolean | Prisma.User$shopIdArgs<ExtArgs>
+  seller?: boolean | Prisma.User$sellerArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
 export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -924,7 +890,7 @@ export type UserIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
 export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "User"
   objects: {
-    shopId: Prisma.$ShopPayload<ExtArgs> | null
+    seller: Prisma.$SellerPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -943,7 +909,6 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     phone: string | null
     otp: string | null
     otpExpiry: Date | null
-    sellerStatus: $Enums.SellerStatus | null
     verifiedForget: boolean | null
     isVerified: boolean
     createdAt: Date
@@ -1342,7 +1307,7 @@ readonly fields: UserFieldRefs;
  */
 export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  shopId<T extends Prisma.User$shopIdArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$shopIdArgs<ExtArgs>>): Prisma.Prisma__ShopClient<runtime.Types.Result.GetResult<Prisma.$ShopPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  seller<T extends Prisma.User$sellerArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sellerArgs<ExtArgs>>): Prisma.Prisma__SellerClient<runtime.Types.Result.GetResult<Prisma.$SellerPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1388,7 +1353,6 @@ export interface UserFieldRefs {
   readonly phone: Prisma.FieldRef<"User", 'String'>
   readonly otp: Prisma.FieldRef<"User", 'String'>
   readonly otpExpiry: Prisma.FieldRef<"User", 'DateTime'>
-  readonly sellerStatus: Prisma.FieldRef<"User", 'SellerStatus'>
   readonly verifiedForget: Prisma.FieldRef<"User", 'Boolean'>
   readonly isVerified: Prisma.FieldRef<"User", 'Boolean'>
   readonly createdAt: Prisma.FieldRef<"User", 'DateTime'>
@@ -1786,22 +1750,22 @@ export type UserDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.Internal
 }
 
 /**
- * User.shopId
+ * User.seller
  */
-export type User$shopIdArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+export type User$sellerArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   /**
-   * Select specific fields to fetch from the Shop
+   * Select specific fields to fetch from the Seller
    */
-  select?: Prisma.ShopSelect<ExtArgs> | null
+  select?: Prisma.SellerSelect<ExtArgs> | null
   /**
-   * Omit specific fields from the Shop
+   * Omit specific fields from the Seller
    */
-  omit?: Prisma.ShopOmit<ExtArgs> | null
+  omit?: Prisma.SellerOmit<ExtArgs> | null
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.ShopInclude<ExtArgs> | null
-  where?: Prisma.ShopWhereInput
+  include?: Prisma.SellerInclude<ExtArgs> | null
+  where?: Prisma.SellerWhereInput
 }
 
 /**
