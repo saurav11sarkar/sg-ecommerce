@@ -1,6 +1,33 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { IsOptional, IsString } from 'class-validator';
 
+export class CreateFirstSellerDto {
+  @ApiProperty({ description: 'Shop name' })
+  @IsString()
+  shopName!: string;
+
+  @ApiPropertyOptional({
+    type: 'string',
+    format: 'binary',
+    description: 'Shop Logo',
+  })
+  @IsOptional()
+  shopPhoto?: string;
+
+  @ApiPropertyOptional({
+    type: 'string',
+    format: 'binary',
+    description: 'Shop Cover Photo',
+  })
+  @IsOptional()
+  shopCoverPhoto?: string;
+
+  @ApiPropertyOptional({ description: 'Shop Description' })
+  @IsOptional()
+  @IsString()
+  discription?: string;
+}
+
 export class CreateSellerDto {
   @ApiProperty({ description: 'Shop name' })
   @IsString()
