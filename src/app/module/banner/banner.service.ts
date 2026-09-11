@@ -12,8 +12,9 @@ export class BannerService {
     files?: Express.Multer.File[],
   ): Promise<string[]> {
     if (!files || files.length === 0) return [];
+    const validFiles = files.filter((file) => file && file.buffer);
     return Promise.all(
-      files.map(async (file) => {
+      validFiles.map(async (file) => {
         const result = await fileUpload.uploadToCloudinary(file);
         return result.url;
       }),
