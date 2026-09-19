@@ -7,7 +7,6 @@ import { BannerModule } from './app/module/banner/banner.module';
 import { CategoryModule } from './app/module/category/category.module';
 import { UserModule } from './app/module/user/user.module';
 import { PrismaModule } from './prisma/prisma.module';
-
 import { ProductModule } from './app/module/product/product.module';
 import { SellerModule } from './app/module/seller/seller.module';
 
