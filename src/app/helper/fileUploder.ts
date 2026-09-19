@@ -21,7 +21,9 @@ const uploadConfig = {
 const uploadToCloudinary = async (
   file: Express.Multer.File,
 ): Promise<{ url: string; public_id: string }> => {
-  if (!file) throw new HttpException('No file provided', 400);
+  if (!file || !file.buffer || !Buffer.isBuffer(file.buffer)) {
+    throw new HttpException('Invalid file: file buffer is required', 400);
+  }
   return new Promise((resolve, reject) => {
     const uploadStream = cloudinary.uploader.upload_stream(
       {
@@ -45,7 +47,17 @@ const uploadToCloudinary = async (
         });
       },
     );
-    streamifier.createReadStream(file.buffer).pipe(uploadStream);
+
+    uploadStream.on('error', (err) => {
+      reject(err);
+    });
+
+    const readStream = streamifier.createReadStream(file.buffer);
+    readStream.on('error', (err) => {
+      reject(err);
+    });
+
+    readStream.pipe(uploadStream);
   });
 };
 

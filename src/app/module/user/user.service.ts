@@ -84,7 +84,6 @@ export class UserService {
       where: { id: exist.id },
       data: {
         role: UserRole.seller,
-        sellerStatus: SellerStatus.pending,
       },
     });
 

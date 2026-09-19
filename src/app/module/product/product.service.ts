@@ -1,5 +1,4 @@
-import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
-import { SellerStatus } from 'prisma/generated/prisma/enums';
+import { BadRequestException, Injectable } from '@nestjs/common';
 import buildWhereConditions from 'src/app/helper/buildWhereConditions';
 import { fileUpload } from 'src/app/helper/fileUploder';
 import paginationHelper, { IOptions } from 'src/app/helper/pagenation';
@@ -17,170 +16,149 @@ type ProductFiles = {
 export class ProductService {
   constructor(private readonly prisma: PrismaService) {}
 
-  private async uploadSingleFile(
-    file?: Express.Multer.File,
-  ): Promise<string | null> {
-    if (!file || file.size === 0) return null;
-    const result = await fileUpload.uploadToCloudinary(file);
-    return result.url;
-  }
-
-  private async uploadManyFiles(
-    files?: Express.Multer.File[],
-  ): Promise<string[]> {
-    if (!files || files.length === 0) return [];
-    const results = await Promise.all(
-      files
-        .filter((f) => f.size > 0)
-        .map((f) => fileUpload.uploadToCloudinary(f)),
-    );
-    return results.map((r) => r.url);
-  }
-
-  private getProductData(dto: CreateProductDto | UpdateProductDto) {
-    const { thumbnail, pictures, categoryId, ...rest } = dto;
-    return rest;
-  }
-
   async createProduct(
-    sellerId: string,
-    dto: CreateProductDto,
-    files: ProductFiles,
+    userId: string,
+    createProductDto: CreateProductDto,
+    file?: {
+      thumbnail?: Express.Multer.File;
+      pictures?: Express.Multer.File[];
+    },
   ) {
-    const seller = await this.prisma.user.findUnique({
-      where: { id: sellerId },
-    });
-    if (!seller)
-      throw new HttpException('Seller not found', HttpStatus.NOT_FOUND);
-
-    if (seller.sellerStatus !== SellerStatus.approved)
-      throw new HttpException('Seller not approved', HttpStatus.BAD_REQUEST);
-
-    const shop = await this.prisma.shop.findUnique({ where: { sellerId } });
-    if (!shop) throw new HttpException('Shop not found', HttpStatus.NOT_FOUND);
-
-    const category = await this.prisma.category.findUnique({
-      where: { id: dto.categoryId },
-    });
-    if (!category)
-      throw new HttpException('Category not found', HttpStatus.NOT_FOUND);
-
-    const [thumbnail, pictures] = await Promise.all([
-      this.uploadSingleFile(files.thumbnail),
-      this.uploadManyFiles(files.pictures),
-    ]);
-
-    return this.prisma.product.create({
-      data: {
-        title: dto.title,
-        price: dto.price,
-        quantityKg: dto.quantityKg,
-        minimalQuantity: dto.minimalQuantity,
-        description: dto.description,
-        thumbnail,
-        pictures,
-        shop: { connect: { id: shop.id } },
-        category: { connect: { id: dto.categoryId } },
+    const seller = await this.prisma.seller.findUnique({
+      where: {
+        sellerId: userId,
       },
     });
+    if (!seller) {
+      throw new BadRequestException('Seller not found');
+    }
+    if (seller?.sellerStatus === 'pending') {
+      throw new BadRequestException('Seller shop is not completed');
+    }
+    if (seller?.sellerStatus !== 'approved') {
+      throw new BadRequestException('Seller is not approved');
+    }
+    if (createProductDto.categoryId) {
+      const category = await this.prisma.category.findUnique({
+        where: {
+          id: createProductDto.categoryId,
+        },
+      });
+      if (!category) {
+        throw new BadRequestException('Category not found');
+      }
+    }
+    if (file?.thumbnail) {
+      const result = await fileUpload.uploadToCloudinary(file.thumbnail);
+      createProductDto.thumbnail = result.url;
+    }
+    if (file?.pictures) {
+      const results = Promise.all(
+        file.pictures.map(fileUpload.uploadToCloudinary),
+      );
+      createProductDto.pictures = (await results).map((r) => r.url);
+    }
+
+    const createProduct = await this.prisma.product.create({
+      data: {
+        sellerId: userId,
+        ...createProductDto,
+      },
+    });
+    return createProduct;
   }
 
   async getAllProducts(params: IFilterParams, options: IOptions) {
     const { limit, page, skip, sortBy, sortOrder } = paginationHelper(options);
-    const whereCondition = buildWhereConditions(params, [
-      'title',
-      'description',
-    ]);
+    const whenConditon = buildWhereConditions(params, ['title', 'description']);
 
-    const [data, total] = await Promise.all([
+    const [result, total] = await Promise.all([
       this.prisma.product.findMany({
-        where: whereCondition,
+        where: whenConditon,
+        include: {
+          seller: true,
+        },
         skip,
         take: limit,
         orderBy: { [sortBy]: sortOrder },
-        include: {
-          category: true,
-          shop: {
-            include: {
-              seller: {
-                select: {
-                  id: true,
-                  email: true,
-                  phone: true,
-                  sellerStatus: true,
-                },
-              },
-            },
-          },
-        },
       }),
-      this.prisma.product.count({ where: whereCondition }),
+      this.prisma.product.count({ where: whenConditon }),
     ]);
 
-    return { data, meta: { total, page, limit } };
+    return {
+      meta: {
+        page,
+        limit,
+        total,
+      },
+      data: result,
+    };
   }
 
-  async getProductById(id: string) {
+  async getSingleProduct(id: string) {
     const product = await this.prisma.product.findUnique({
-      where: { id },
-      include: { category: true, shop: true },
+      where: {
+        id,
+      },
+      include: {
+        seller: true,
+      },
     });
-    if (!product)
-      throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
+    if (!product) {
+      throw new BadRequestException('Product not found');
+    }
     return product;
   }
 
   async updateProduct(
-    sellerId: string,
     id: string,
-    dto: UpdateProductDto,
-    files: ProductFiles,
+    updateProductDto: UpdateProductDto,
+    file?: {
+      thumbnail?: Express.Multer.File;
+      pictures?: Express.Multer.File[];
+    },
   ) {
-    const seller = await this.prisma.user.findUnique({
-      where: { id: sellerId },
-    });
-    if (!seller)
-      throw new HttpException('Seller not found', HttpStatus.NOT_FOUND);
-
-    const product = await this.prisma.product.findUnique({ where: { id } });
-    if (!product)
-      throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
-
-    const shop = await this.prisma.shop.findUnique({
-      where: { id: product.shopId },
-    });
-    if (!shop || shop.sellerId !== sellerId)
-      throw new HttpException('You are not authorized', HttpStatus.FORBIDDEN);
-
-    const [thumbnail, pictures] = await Promise.all([
-      this.uploadSingleFile(files.thumbnail),
-      this.uploadManyFiles(files.pictures),
-    ]);
-
-    return this.prisma.product.update({
-      where: { id },
-      data: {
-        ...this.getProductData(dto),
-        thumbnail: thumbnail ?? undefined,
-        pictures: pictures.length > 0 ? pictures : undefined,
-        ...(dto.categoryId && {
-          category: { connect: { id: dto.categoryId } },
-        }),
+    const product = await this.prisma.product.findUnique({
+      where: {
+        id,
       },
     });
+    if (!product) {
+      throw new BadRequestException('Product not found');
+    }
+    if (file?.thumbnail) {
+      const result = await fileUpload.uploadToCloudinary(file.thumbnail);
+      updateProductDto.thumbnail = result.url;
+    }
+    if (file?.pictures) {
+      const results = Promise.all(
+        file.pictures.map(fileUpload.uploadToCloudinary),
+      );
+      updateProductDto.pictures = (await results).map((r) => r.url);
+    }
+    const updatedProduct = await this.prisma.product.update({
+      where: {
+        id,
+      },
+      data: updateProductDto,
+    });
+    return updatedProduct;
   }
 
-  async deleteProduct(sellerId: string, id: string) {
-    const product = await this.prisma.product.findUnique({ where: { id } });
-    if (!product)
-      throw new HttpException('Product not found', HttpStatus.NOT_FOUND);
-
-    const shop = await this.prisma.shop.findUnique({
-      where: { id: product.shopId },
+  async deleteProduct(id: string) {
+    const product = await this.prisma.product.findUnique({
+      where: {
+        id,
+      },
     });
-    if (!shop || shop.sellerId !== sellerId)
-      throw new HttpException('You are not authorized', HttpStatus.FORBIDDEN);
-
-    return this.prisma.product.delete({ where: { id } });
+    if (!product) {
+      throw new BadRequestException('Product not found');
+    }
+    const deletedProduct = await this.prisma.product.delete({
+      where: {
+        id,
+      },
+    });
+    return deletedProduct;
   }
 }
